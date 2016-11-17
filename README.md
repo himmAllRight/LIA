@@ -1,5 +1,5 @@
 # LIA
-Ledger Import Assistant
+## Ledger Import Assistant
 
 LIA is a simple command-line python application that can help import exported Cedit Card and Bank statement csv files into a ledger journal. There are many other great convert/import options out there. However, I found their setup to often be a bit more complicated than what I needed initially, so I decided to write my own tool. Development of LIA will expand with my use of ledger.
 
