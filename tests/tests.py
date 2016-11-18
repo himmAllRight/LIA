@@ -8,6 +8,7 @@ def loadTest():
 
 # Just until I write real ones
 def testTrue():
-
+    return(True)
+    
 testTrue()
 # loadTest()
