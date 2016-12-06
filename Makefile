@@ -5,4 +5,4 @@ clean:
 	rm -rf lia.build lia.exe
 
 test:
-	python3 tests/tests.py
+	python3 tests.py

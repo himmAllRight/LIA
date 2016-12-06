@@ -1,5 +1,6 @@
 import os
 import sys
+import functools
 import liaBackend as backend
 
 def test_parseHeader():
@@ -14,7 +15,11 @@ def testTrue():
     return(True)
 
 # Execute Tests
+testList =  [["True", testTrue()]
+            ,["parseHeader", test_parseHeader()]]
 
-print(testTrue())
-print(test_parseHeader())
+largestTestName =  functools.reduce(max, map(lambda x: len(x[0]), testList))
+
+for test in testList:
+    print(test[0].rjust(largestTestName), "Test: ", test[1])
 
