@@ -13,7 +13,7 @@ def test_parseLine():
     header   = backend.parseHeader(",,date,amount,description,,")
     lineData = backend.parseLine(",,09/06/1991,75.19,line statement,,", header)
     expected =  {'description': 'line statement'
-                , 'date': '09/06/1991'
+                , 'date': '09/06/1992'
                 , 'amount': '75.19'}
     return(lineData == expected)
 
