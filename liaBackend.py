@@ -4,6 +4,7 @@ import argparse
 import datetime
 
 ## Lia backend-code
+## There should be no 'print' or 'input' calls here.
 
 def parseHeader(lineStr, delim = ","):
     ## Split header into vector
@@ -34,9 +35,11 @@ def cleanLineData(lineData, dateFormat, outputDateFormat = "%Y/%m/%d"):
 
     return(lineData)
 
+def entryInfo(lineData):
+    return(lineData["date"] + " " + lineData["description"] + " " + lineData["amount"])
+
 def modifyLineData(lineData):
-    newEntryInfo = lineData["date"] + " " + lineData["description"] + " " + lineData["amount"]
-    print("\nAdding new entry: ", newEntryInfo)
+    print("\nAdding new entry: " + entryInfo(lineData))
 
     editList = ["description", "date", "amount"]
 
