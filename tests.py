@@ -37,6 +37,7 @@ def testTrue():
 # Execute Tests
 testList =  [["True", testTrue()]
              ,["parseHeader", test_parseHeader()]
+             ,["fake Test", False]
              ,["parseLine", test_parseLine()]
              ,["cleanLineData", test_cleanLineData()]]
 
@@ -45,3 +46,5 @@ largestTestName =  functools.reduce(max, map(lambda x: len(x[0]), testList))
 for test in testList:
     print(test[0].rjust(largestTestName), "Test: ", test[1])
 
+if(False in map(lambda x: x[1], testList)):
+    sys.exit("One or more tests failed!")
