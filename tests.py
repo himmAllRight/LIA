@@ -37,8 +37,6 @@ def testTrue():
 # Execute Tests
 testList =  [["True", testTrue()]
              ,["parseHeader", test_parseHeader()]
-             ,["fake Test", False]
-             ,["fake Test2", False]
              ,["parseLine", test_parseLine()]
              ,["cleanLineData", test_cleanLineData()]]
 failedTests = []
