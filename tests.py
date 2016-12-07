@@ -13,10 +13,22 @@ def test_parseLine():
     header   = backend.parseHeader(",,date,amount,description,,")
     lineData = backend.parseLine(",,09/06/1991,75.19,line statement,,", header)
     expected =  {'description': 'line statement'
-                , 'date': '09/06/1992'
+                , 'date': '09/06/1991'
                 , 'amount': '75.19'}
     return(lineData == expected)
 
+def test_cleanLineData():
+    lineData    = {'description': 'line statement          '
+                   , 'date': '09/06/1991'
+                   , 'amount': '75.19'}
+    dateFormat  = "%m/%d/%Y"
+    cleanedLine = backend.cleanLineData(lineData, dateFormat)
+    expected    = {'description': 'line statement'
+                   , 'date': '1991/09/06'
+                   , 'amount': '75.19'}
+
+    return(cleanedLine == expected)
+    
 
 # Just until I write real ones
 def testTrue():
@@ -25,7 +37,8 @@ def testTrue():
 # Execute Tests
 testList =  [["True", testTrue()]
              ,["parseHeader", test_parseHeader()]
-             ,["parseLine", test_parseLine()]]
+             ,["parseLine", test_parseLine()]
+             ,["cleanLineData", test_cleanLineData()]]
 
 largestTestName =  functools.reduce(max, map(lambda x: len(x[0]), testList))
 
