@@ -28,6 +28,14 @@ def test_cleanLineData():
                    , 'amount': '75.19'}
 
     return(cleanedLine == expected)
+
+def test_entryInfo():
+    lineData    = {'description': 'line statement          '
+                   , 'date': '09/06/1991'
+                   , 'amount': '75.19'}
+    resultLine  = backend.entryInfo(lineData)
+    expected    = '09/06/1991 line statement           75.19'
+    return(resultLine == expected)
     
 
 # Just until I write real ones
@@ -38,7 +46,8 @@ def testTrue():
 testList =  [["True", testTrue()]
              ,["parseHeader", test_parseHeader()]
              ,["parseLine", test_parseLine()]
-             ,["cleanLineData", test_cleanLineData()]]
+             ,["cleanLineData", test_cleanLineData()]
+             ,["entryInfo", test_entryInfo()]]
 failedTests = []
 
 largestTestName =  functools.reduce(max, map(lambda x: len(x[0]), testList))
