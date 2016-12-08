@@ -5,8 +5,10 @@ import argparse
 import liaBackend as backend
 
 ## All the CLI Code
+def modifyLinePrompt(lineData):
+    print("\nAdding new entry: " + entryInfo(lineData))
 
-
+## Main CLI Loop
 def main():
     """ The Main Class"""
     parser = argparse.ArgumentParser(description="Convert csv files to Ledger")

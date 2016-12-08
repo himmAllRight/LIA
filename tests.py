@@ -36,7 +36,16 @@ def test_entryInfo():
     resultLine  = backend.entryInfo(lineData)
     expected    = '09/06/1991 line statement           75.19'
     return(resultLine == expected)
-    
+
+### These tests require some refactoring to isolate IO
+### I am going to see if I can factor out some common IO
+### tasks into a few very basic IO functions, and then have
+### the logic of these functions be pure and testable.
+
+## test_modifyLineData()
+## test_setAccounts()
+## test_getSecondaryAccounts()
+
 
 # Just until I write real ones
 def testTrue():
