@@ -5,8 +5,25 @@ import argparse
 import liaBackend as backend
 
 ## All the CLI Code
-def modifyLinePrompt(lineData):
-    print("\nAdding new entry: " + entryInfo(lineData))
+def getUserInput(promptStr):
+    """Gets the input from use. Returns False if no input"""
+    response = input(promptStr)
+    if(response == ""):
+        return(False)
+    else:
+        return(response)
+
+def modifyLinePrompt(lineData, editList= ["description", "date", "amount"]):
+    """Loops through and prompts user of any data modifications to line"""
+    print("\nAdding new entry: " + backend.entryInfo(lineData))
+    
+    for dataType in editList:
+        editPrompt = dataType.capitalize() + " [" + lineData[dataType] + "]: "
+        response = getUserInput(editPrompt)
+        if(response):
+            backend.modifyData(lineData, dataType, response)
+    return(lineData)
+    
 
 ## Main CLI Loop
 def main():
@@ -34,7 +51,7 @@ def main():
         else:
             lineData = backend.parseLine(line, header)
             lineData = backend.cleanLineData(lineData, dateFormat)
-            lineData = backend.modifyLineData(lineData)
+            lineData = modifyLinePrompt(lineData)
             lineData = backend.setAccounts(lineData, importAccount = importAccount)
             backend.writeLedgerStatement(lineData, outputFile)
 

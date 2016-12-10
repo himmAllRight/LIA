@@ -37,12 +37,21 @@ def test_entryInfo():
     expected    = '09/06/1991 line statement           75.19'
     return(resultLine == expected)
 
+def test_modifyData():
+    startLineData     = {'description': 'line statement          '
+                         , 'date': '09/06/1991'
+                         , 'amount': '75.19'}
+    newLineData       = backend.modifyData(startLineData, "date", '10/14/1991')
+    expectedLinedData = {'description': 'line statement          '
+                         , 'date': '10/14/1991'
+                         , 'amount': '75.19'}
+    return(newLineData == expectedLinedData)
+
 ### These tests require some refactoring to isolate IO
 ### I am going to see if I can factor out some common IO
 ### tasks into a few very basic IO functions, and then have
 ### the logic of these functions be pure and testable.
 
-## test_modifyLineData()
 ## test_setAccounts()
 ## test_getSecondaryAccounts()
 
@@ -56,7 +65,8 @@ testList =  [["True", testTrue()]
              ,["parseHeader", test_parseHeader()]
              ,["parseLine", test_parseLine()]
              ,["cleanLineData", test_cleanLineData()]
-             ,["entryInfo", test_entryInfo()]]
+             ,["entryInfo", test_entryInfo()]
+             ,["modifyData", test_modifyData()]]
 failedTests = []
 
 largestTestName =  functools.reduce(max, map(lambda x: len(x[0]), testList))

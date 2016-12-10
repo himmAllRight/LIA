@@ -7,10 +7,12 @@ import datetime
 ## There should be no 'print' or 'input' calls here.
 
 def parseHeader(lineStr, delim = ","):
+    """Parses the first line (header) to determine data order"""
     ## Split header into vector
     return(lineStr.split(delim))
 
 def parseLine(line, lineOrder, delim = ","):
+    """Parses out the information from a line """
     splitLine = line.split(delim)
     lineData = {"date"        : "",
                 "amount"      : "",
@@ -26,6 +28,7 @@ def parseLine(line, lineOrder, delim = ","):
     return(lineData)
 
 def cleanLineData(lineData, dateFormat, outputDateFormat = "%Y/%m/%d"):
+    """Cleans the data of a line (format dates/clear extra whitespaces)"""
     # Clean Date to proper format
     d = datetime.datetime.strptime(lineData["date"], dateFormat)
     lineData["date"] = datetime.date.strftime(d, outputDateFormat)
@@ -36,18 +39,13 @@ def cleanLineData(lineData, dateFormat, outputDateFormat = "%Y/%m/%d"):
     return(lineData)
 
 def entryInfo(lineData):
+    """Returns a string of entry data"""
     return(lineData["date"] + " " + lineData["description"] + " " + lineData["amount"])
 
-def modifyLineData(lineData):
-    print("\nAdding new entry: " + entryInfo(lineData))
 
-    editList = ["description", "date", "amount"]
-
-    for dataType in editList:
-        editPrompt = dataType.capitalize() + " [" + lineData[dataType] + "]: "
-        newInput = input(editPrompt)
-        if(newInput != ""):
-            lineData[dataType] = newInput
+def modifyData(lineData, key, newValue):
+    """Simply modifies the data of a lineData obj"""
+    lineData[key] = newValue
     return(lineData)
 
 def setAccounts(lineData, importAccount = ""):
