@@ -48,35 +48,22 @@ def modifyData(lineData, key, newValue):
     lineData[key] = newValue
     return(lineData)
 
-def setAccounts(lineData, importAccount = ""):
-    ## Set main account
-    editPrompt    = "Main account  [" + importAccount + "]: "
-    editImportAccount = input(editPrompt)
-    if(editImportAccount == ""):
-        editImportAccount = importAccount
-    lineData["mainAccount"] = editImportAccount
-
-    ## Set movement account -- NOTE -- will eventually be a loop for multiple
-    lineData = getSecondaryAccounts(lineData)
-
+def setMainAccount(lineData, mainAccount):
+    """Sets user edited account name for the mainAccount value """
+    lineData["mainAccount"] = mainAccount
     return(lineData)
 
-def getSecondaryAccounts(lineData):
-    amount = lineData["amount"]
+def setSecondaryAccounts(lineData, secondaryAccounts):
+    """Sets the secondary accounts data in lineData"""
     lineData["secondAccounts"] = []
-    accountAdd = True
-
-    while(accountAdd != ""):
-        accountAdd    = input("Secondary account(s): ")
-        if(accountAdd != ""):
-            amountPrompt  = "'" + accountAdd + "'"  + " amount: "
-            accountAmount = input(amountPrompt)
-            lineData["secondAccounts"].append((accountAdd, accountAmount))
-        else:
-            return(lineData)
+    for (accountName, accountAmount) in secondaryAccounts:
+        lineData["secondAccounts"].append((accountName, accountAmount))
+    print("4: ", lineData)
+    return(lineData)
         
 
 def writeLedgerStatement(lineData, outFile):
+    print(lineData)
     nameLine        = lineData["date"] + " " + lineData["description"] + "\n"
     mainAccountLine = "\t" + lineData["mainAccount"] + "\t" + lineData["amount"] + "\n"
     ## add loop here

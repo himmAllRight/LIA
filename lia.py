@@ -5,11 +5,11 @@ import argparse
 import liaBackend as backend
 
 ## All the CLI Code
-def getUserInput(promptStr):
+def getUserInput(promptStr, defaultValue = False):
     """Gets the input from use. Returns False if no input"""
     response = input(promptStr)
     if(response == ""):
-        return(False)
+        return(defaultValue)
     else:
         return(response)
 
@@ -23,6 +23,42 @@ def modifyLinePrompt(lineData, editList= ["description", "date", "amount"]):
         if(response):
             backend.modifyData(lineData, dataType, response)
     return(lineData)
+
+def setAccountsPrompt(lineData, importAccount = ""):
+    """Calls the prompts to set the accounts (will also check rules when added)"""
+
+    ## In the future, here is where the rules will be checked/called to see if
+    ## there is anything to pass as a secondary account's default name.
+    
+    ## For now, just enjoy the nested return call :P
+    lineData = mainAccountPrompt(lineData, importAccount = importAccount)
+    lineData = secondAccountsPrompt(lineData)
+    return(lineData)
+
+def mainAccountPrompt(lineData, importAccount = ""):
+    """Prompts the user for information to set the main account"""
+    editPrompt = "Main account [" + importAccount + "]: "
+    editImportAccount = getUserInput(editPrompt, defaultValue = importAccount)
+
+    return(backend.setMainAccount(lineData, editImportAccount))
+
+    
+
+def secondAccountsPrompt(lineData):
+    """Prompts the user for the secondary account(s) information"""
+    secondAccounts = []
+    accountAdd = True
+
+    while(accountAdd or secondAccounts == []):
+        if(not(accountAdd) and secondAccounts == []):
+            print("At least one secondary account must be specified. Try again.")
+        accountAdd = getUserInput("Secondary account(s): ", defaultValue = False)
+        if(accountAdd):
+            accountAmount = getUserInput("'" + accountAdd + "'" + " amount: ", defaultValue = "")
+            secondAccounts.append((accountAdd, accountAmount))
+    return(backend.setSecondaryAccounts(lineData, secondAccounts))
+        
+    
     
 
 ## Main CLI Loop
@@ -52,7 +88,7 @@ def main():
             lineData = backend.parseLine(line, header)
             lineData = backend.cleanLineData(lineData, dateFormat)
             lineData = modifyLinePrompt(lineData)
-            lineData = backend.setAccounts(lineData, importAccount = importAccount)
+            lineData = setAccountsPrompt(lineData, importAccount = importAccount)
             backend.writeLedgerStatement(lineData, outputFile)
 
     inputFile.close()
