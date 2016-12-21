@@ -52,10 +52,31 @@ def test_modifyData():
 ### tasks into a few very basic IO functions, and then have
 ### the logic of these functions be pure and testable.
 
-## test_setAccounts()
+def test_setMainAccount():
+    startLineData = {'description': 'line statement'
+                     , 'date': '1991/09/06'
+                     , 'amount': '75.19'}
+    newLineData   = backend.setMainAccount(startLineData, "Liabilities:Checking:Test")
+    expected   = {'description': 'line statement'
+                  , 'date': '1991/09/06'
+                  , 'amount': '75.19'
+                  , 'mainAccount' : "Liabilities:Checking:Test"}
+    return(newLineData == expected)
 
 
-## test_getSecondaryAccounts()
+
+def test_setSecondAccounts():
+    startLineData = {'description': 'line statement'
+                     , 'date': '1991/09/06'
+                     , 'amount': '75.19'
+                     , 'mainAccount' : "Liabilities:Checking:Test"}
+    newLineData = backend.setSecondAccounts(startLineData, [("acc1",  "20.00"), ("acc2", "")])
+    expected    = {'description': 'line statement'
+                   , 'date': '1991/09/06'
+                   , 'amount': '75.19'
+                   , 'mainAccount' : "Liabilities:Checking:Test"
+                   , 'secondAccounts' : [("acc1",  "20.00"), ("acc2", "")]}
+    return(newLineData == expected)
 
 
 # Just until I write real ones
@@ -68,7 +89,9 @@ testList =  [["True", testTrue()]
              ,["parseLine", test_parseLine()]
              ,["cleanLineData", test_cleanLineData()]
              ,["entryInfo", test_entryInfo()]
-             ,["modifyData", test_modifyData()]]
+             ,["modifyData", test_modifyData()]
+             ,["setMainAccount", test_setMainAccount()]
+             ,["setSecondAccounts", test_setSecondAccounts()]]
 failedTests = []
 
 largestTestName =  functools.reduce(max, map(lambda x: len(x[0]), testList))

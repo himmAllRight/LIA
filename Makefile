@@ -8,3 +8,6 @@ clean:
 
 test:
 	python3 tests.py
+
+all:
+	make clean build test run

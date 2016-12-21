@@ -56,7 +56,7 @@ def secondAccountsPrompt(lineData):
         if(accountAdd):
             accountAmount = getUserInput("'" + accountAdd + "'" + " amount: ", defaultValue = "")
             secondAccounts.append((accountAdd, accountAmount))
-    return(backend.setSecondaryAccounts(lineData, secondAccounts))
+    return(backend.setSecondAccounts(lineData, secondAccounts))
         
     
     

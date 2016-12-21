@@ -53,12 +53,14 @@ def setMainAccount(lineData, mainAccount):
     lineData["mainAccount"] = mainAccount
     return(lineData)
 
-def setSecondaryAccounts(lineData, secondaryAccounts):
+def setSecondAccounts(lineData, secondaryAccounts):
     """Sets the secondary accounts data in lineData"""
-    lineData["secondAccounts"] = []
-    for (accountName, accountAmount) in secondaryAccounts:
-        lineData["secondAccounts"].append((accountName, accountAmount))
-    print("4: ", lineData)
+    lineData["secondAccounts"] = secondaryAccounts
+
+## Use this if more complicated method needed    
+##    for (accountName, accountAmount) in secondaryAccounts:
+##        lineData["secondAccounts"].append((accountName, accountAmount))
+        
     return(lineData)
         
 
