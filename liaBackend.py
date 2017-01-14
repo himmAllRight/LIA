@@ -6,6 +6,15 @@ import datetime
 ## Lia backend-code
 ## There should be no 'print' or 'input' calls here.
 
+## File handeling Code
+def openOutputFile(src, overwrite = False):
+    """Handles opening the output file correctly"""
+    if overwrite:
+        return(open(src, "w"))
+    else:
+        return(open(src, "a"))
+
+## Parser Code
 def parseHeader(lineStr, delim = ","):
     """Parses the first line (header) to determine data order"""
     ## Split header into vector
@@ -42,7 +51,7 @@ def entryInfo(lineData):
     """Returns a string of entry data"""
     return(lineData["date"] + " " + lineData["description"] + " " + lineData["amount"])
 
-
+## Entry creation/modification functions
 def modifyData(lineData, key, newValue):
     """Simply modifies the data of a lineData obj"""
     lineData[key] = newValue
@@ -64,6 +73,7 @@ def setSecondAccounts(lineData, secondaryAccounts):
     return(lineData)
         
 
+## Output Functions
 def writeLedgerStatement(lineData, outFile):
     print(lineData)
     nameLine        = lineData["date"] + " " + lineData["description"] + "\n"

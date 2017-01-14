@@ -30,7 +30,7 @@ _To add later_
 `python3 lia.py -f credit-card.csv -o ledger.dat -a "Liabilities:CreditCard:Discover" -d "%m/%d/%Y"`
 
 ### Future TODO Features
-- [ ] Output appends, unless --overwrite flag
+- [X] Output appends, unless --overwrite flag
 - [ ] Option to have statements with reconciled indicator
 - [ ] When looping through an input file, it copies the input file to a temp and pops items off as it works through them. This way, if you stop part-way through, you can pick up where it was last left off.
 - [ ] When user edits data, default values are editable in the prompt

@@ -69,11 +69,12 @@ def main():
     parser.add_argument('-o','--output', help="output ledger file name", required=True)
     parser.add_argument('-a','--import-account', help="Default import account", required=True)
     parser.add_argument('-d','--date-format', help="date-format", required=False)
+    parser.add_argument('-r', '--overwrite', help="Overwrite output file. Defaults to append", required=False)
 
     args = vars(parser.parse_args())
 
     inputFile     = open(args['input'], "r")
-    outputFile    = open(args['output'], "w")
+    outputFile    = backend.openOutputFile(args['output'], args['overwrite'])
     importAccount = args['import_account']
     dateFormat    = "%m/%d/%Y"
     
