@@ -88,6 +88,9 @@ def main():
         else:
             lineData = backend.parseLine(line, header)
             lineData = backend.cleanLineData(lineData, dateFormat)
+            ## This is where the cache split will be.
+            ## Stuff above this will be done whenadding to cache queue
+            ## Stuff below will be done when processing the queue.
             lineData = modifyLinePrompt(lineData)
             lineData = setAccountsPrompt(lineData, importAccount = importAccount)
             backend.writeLedgerStatement(lineData, outputFile)

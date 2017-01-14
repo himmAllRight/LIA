@@ -14,6 +14,56 @@ def openOutputFile(src, overwrite = False):
     else:
         return(open(src, "a"))
 
+## Cache Queue Functions
+def cacheInput(inputFile, cacheFile, dateFormat, prepend = False):
+    """Goes through input file and caches it to be processed"""
+
+    inputData = parseInput(inputFile, dateFormat)
+    if prepend:
+        prependToCache(inputData, cacheFile)
+    else:
+        appendToCache(inputData, cacheFile)
+
+def parseInput(inputFile, dateFormat):
+    """Reads an input file and converts it to the cache format"""
+    header   = False
+    inputData = []
+    
+    for line in inputFile:
+        if (header == False):
+            header = parseHeader(line)
+        else:
+            inputData.append(cleanLineData(parseLine(line, header), dateFormat))
+    print(inputData)
+    return(inputData)
+
+## TODO
+def prependToCache(inputFile, dateFormat):
+    """Prepends the new input file to the cache to be processed first"""
+
+def appendToCache(inputData, cacheFile, order=["date", "description", "amount"]):
+    """Appends the Cache format input data to the cache-queue"""
+    for item in inputData:
+        cacheLine = lineDataToCacheLine(item, order = order)
+        print("writting: " + cacheLine)
+        cacheFile.write(cacheLine + "\n")
+
+def lineDataToCacheLine(lineData, order=["date", "description", "amount"], delim=","):
+    """Converts a lineData item to a string to write to the cache"""
+    lineDataList = []
+    for dataName in order:
+        lineDataList.append(lineData[dataName])
+    return(delim.join(lineDataList))
+
+def loadCache(cacheFile, order=["date", "description", "amount"], delim=",", dateFormat="%Y/%m/%d"):
+    """Loops through a cache file and parses/loads the data to a queue"""
+    queueData = []
+    for line in cacheFile:
+        lineData = parseLine(line, order, delim)
+        queueData.append(cleanLineData(lineData, dateFormat))
+    return(queueData)
+        
+
 ## Parser Code
 def parseHeader(lineStr, delim = ","):
     """Parses the first line (header) to determine data order"""
@@ -44,6 +94,10 @@ def cleanLineData(lineData, dateFormat, outputDateFormat = "%Y/%m/%d"):
 
     # Remove multiple spaces from description
     lineData["description"] = " ".join(lineData["description"].split())
+
+    # Remove newlines
+    for dataName in lineData:
+        lineData[dataName] = lineData[dataName].rstrip("\n")
 
     return(lineData)
 
