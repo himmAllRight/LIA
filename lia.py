@@ -1,5 +1,5 @@
 #import sys
-#import os
+import os
 import argparse
 #import datetime
 import liaBackend as backend
@@ -75,25 +75,22 @@ def main():
 
     inputFile     = open(args['input'], "r")
     outputFile    = backend.openOutputFile(args['output'], args['overwrite'])
+    cacheFileSRC  = "./cache.csv"
     importAccount = args['import_account']
     dateFormat    = "%m/%d/%Y"
     
     if args['date_format']:
         dateformat = args['date_format']
 
-    header = False
-    for line in inputFile:
-        if(header == False):
-            header = backend.parseHeader(line)
-        else:
-            lineData = backend.parseLine(line, header)
-            lineData = backend.cleanLineData(lineData, dateFormat)
-            ## This is where the cache split will be.
-            ## Stuff above this will be done whenadding to cache queue
-            ## Stuff below will be done when processing the queue.
+    backend.cacheInput(inputFile, cacheFileSRC, dateFormat)
+    queueData = backend.loadCache(cacheFileSRC)
+
+    for lineData in queueData:
             lineData = modifyLinePrompt(lineData)
             lineData = setAccountsPrompt(lineData, importAccount = importAccount)
             backend.writeLedgerStatement(lineData, outputFile)
+    ## If loop through all, delete cache file
+    os.remove(cacheFileSRC)
 
     inputFile.close()
     outputFile.close()

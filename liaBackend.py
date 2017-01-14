@@ -15,14 +15,15 @@ def openOutputFile(src, overwrite = False):
         return(open(src, "a"))
 
 ## Cache Queue Functions
-def cacheInput(inputFile, cacheFile, dateFormat, prepend = False):
+def cacheInput(inputFile, cacheFileSRC, dateFormat, prepend = False):
     """Goes through input file and caches it to be processed"""
-
+    cacheFile = open(cacheFileSRC, "a")
     inputData = parseInput(inputFile, dateFormat)
     if prepend:
         prependToCache(inputData, cacheFile)
     else:
         appendToCache(inputData, cacheFile)
+    cacheFile.close()
 
 def parseInput(inputFile, dateFormat):
     """Reads an input file and converts it to the cache format"""
@@ -34,7 +35,6 @@ def parseInput(inputFile, dateFormat):
             header = parseHeader(line)
         else:
             inputData.append(cleanLineData(parseLine(line, header), dateFormat))
-    print(inputData)
     return(inputData)
 
 ## TODO
@@ -45,7 +45,6 @@ def appendToCache(inputData, cacheFile, order=["date", "description", "amount"])
     """Appends the Cache format input data to the cache-queue"""
     for item in inputData:
         cacheLine = lineDataToCacheLine(item, order = order)
-        print("writting: " + cacheLine)
         cacheFile.write(cacheLine + "\n")
 
 def lineDataToCacheLine(lineData, order=["date", "description", "amount"], delim=","):
@@ -55,12 +54,14 @@ def lineDataToCacheLine(lineData, order=["date", "description", "amount"], delim
         lineDataList.append(lineData[dataName])
     return(delim.join(lineDataList))
 
-def loadCache(cacheFile, order=["date", "description", "amount"], delim=",", dateFormat="%Y/%m/%d"):
+def loadCache(cacheFileSRC, order=["date", "description", "amount"], delim=",", dateFormat="%Y/%m/%d"):
     """Loops through a cache file and parses/loads the data to a queue"""
+    cacheFile = open(cacheFileSRC, "r")
     queueData = []
     for line in cacheFile:
         lineData = parseLine(line, order, delim)
         queueData.append(cleanLineData(lineData, dateFormat))
+    cacheFile.close()
     return(queueData)
         
 
@@ -129,7 +130,6 @@ def setSecondAccounts(lineData, secondaryAccounts):
 
 ## Output Functions
 def writeLedgerStatement(lineData, outFile):
-    print(lineData)
     nameLine        = lineData["date"] + " " + lineData["description"] + "\n"
     mainAccountLine = "\t" + lineData["mainAccount"] + "\t" + lineData["amount"] + "\n"
     ## add loop here
