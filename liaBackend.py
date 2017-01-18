@@ -15,9 +15,9 @@ def openOutputFile(src, overwrite = False):
         return(open(src, "a"))
 
 ## Cache Queue Functions
-def cacheInput(inputFile, cacheFileSRC, dateFormat, prepend = False):
+def cacheInput(inputFile, cacheFileSRC, dateFormat, prepend = False, openMethod= "a"):
     """Goes through input file and caches it to be processed"""
-    cacheFile = open(cacheFileSRC, "a")
+    cacheFile = open(cacheFileSRC, openMethod)
     inputData = parseInput(inputFile, dateFormat)
     if prepend:
         prependToCache(inputData, cacheFile)
@@ -63,7 +63,12 @@ def loadCache(cacheFileSRC, order=["date", "description", "amount"], delim=",", 
         queueData.append(cleanLineData(lineData, dateFormat))
     cacheFile.close()
     return(queueData)
-        
+
+def writeWorkingCacheToFile(inputData, cacheFileSRC):
+    cacheFile = open(cacheFileSRC, "w")
+    appendToCache(inputData, cacheFile)
+    cacheFile.close()
+    
 
 ## Parser Code
 def parseHeader(lineStr, delim = ","):

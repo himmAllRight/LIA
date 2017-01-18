@@ -85,12 +85,18 @@ def main():
     backend.cacheInput(inputFile, cacheFileSRC, dateFormat)
     queueData = backend.loadCache(cacheFileSRC)
 
-    for lineData in queueData:
+    skipProcess = input("skip Process? (For Testing)")
+    
+    import atexit
+    atexit.register(backend.writeWorkingCacheToFile, queueData, cacheFileSRC)
+    
+    if(skipProcess == "n"):
+        for lineData in queueData:
             lineData = modifyLinePrompt(lineData)
             lineData = setAccountsPrompt(lineData, importAccount = importAccount)
             backend.writeLedgerStatement(lineData, outputFile)
-    ## If loop through all, delete cache file
-    os.remove(cacheFileSRC)
+            ## If loop through all, delete cache file
+            os.remove(cacheFileSRC)
 
     inputFile.close()
     outputFile.close()
