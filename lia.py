@@ -95,8 +95,9 @@ def main():
             lineData = modifyLinePrompt(lineData)
             lineData = setAccountsPrompt(lineData, importAccount = importAccount)
             backend.writeLedgerStatement(lineData, outputFile)
+            queueData.pop(0)
             ## If loop through all, delete cache file
-            os.remove(cacheFileSRC)
+        os.remove(cacheFileSRC)
 
     inputFile.close()
     outputFile.close()
