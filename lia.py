@@ -65,7 +65,7 @@ def secondAccountsPrompt(lineData):
 def main():
     """ The Main Class"""
     parser = argparse.ArgumentParser(description="Convert csv files to Ledger")
-    parser.add_argument('-f','--input', help="Input csv file name", required=True)
+    parser.add_argument('-f','--input', help="Input csv file name", required=False)
     parser.add_argument('-o','--output', help="output ledger file name", required=True)
     parser.add_argument('-a','--import-account', help="Default import account", required=True)
     parser.add_argument('-d','--date-format', help="date-format", required=False)
@@ -73,7 +73,12 @@ def main():
 
     args = vars(parser.parse_args())
 
-    inputFile     = open(args['input'], "r")
+    
+    if(args['input']):
+        inputFile     = open(args['input'], "r")
+    else:
+        inputFile = False
+        
     outputFile    = backend.openOutputFile(args['output'], args['overwrite'])
     cacheFileSRC  = "./cache.csv"
     importAccount = args['import_account']
@@ -82,7 +87,8 @@ def main():
     if args['date_format']:
         dateformat = args['date_format']
 
-    backend.cacheInput(inputFile, cacheFileSRC, dateFormat)
+    if(inputFile):
+        backend.cacheInput(inputFile, cacheFileSRC, dateFormat)
     queueData = backend.loadCache(cacheFileSRC)
 
     skipProcess = input("skip Process? (For Testing)")
@@ -91,8 +97,9 @@ def main():
     atexit.register(backend.writeWorkingCacheToFile, queueData, cacheFileSRC)
     
     if(skipProcess == "n"):
-        for lineData in queueData:
-            lineData = modifyLinePrompt(lineData)
+        for i in range(0,len(queueData)):
+            print("queueData: %s"% queueData)
+            lineData = modifyLinePrompt(queueData[0])
             lineData = setAccountsPrompt(lineData, importAccount = importAccount)
             backend.writeLedgerStatement(lineData, outputFile)
             queueData.pop(0)
