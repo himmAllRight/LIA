@@ -15,7 +15,8 @@ LIA is a simple command-line python application that can help import exported Ce
 ### Command Line Options
 | Flags | description |
 |-------|-------------|
-| -f, --import | input csv file to convert |
+| -f, --import | input csv file to convert. If not provided just reads
+from cache |
 | -o, --output | Output ledger file name |
 | -r, --overwrite | Overwrites the output file. Appends by default |
 | -a, --import-account | The account the import data is from |
@@ -33,7 +34,7 @@ _To add later_
 ### Future TODO Features
 - [X] Output appends, unless --overwrite flag
 - [ ] Option to have statements with reconciled indicator
-- [ ] When looping through an input file, it copies the input file to a temp and pops items off as it works through them. This way, if you stop part-way through, you can pick up where it was last left off.
+- [X] When looping through an input file, it copies the input file to a temp and pops items off as it works through them. This way, if you stop part-way through, you can pick up where it was last left off.
 - [ ] When user edits data, default values are editable in the prompt
 - [ ] User can setup rules/parsers to default transaction placement. (ex: anything from "cumberland farms" will default to Expenses:Transportation:Gas)
 
