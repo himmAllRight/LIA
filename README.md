@@ -15,8 +15,7 @@ LIA is a simple command-line python application that can help import exported Ce
 ### Command Line Options
 | Flags | description |
 |-------|-------------|
-| -f, --import | input csv file to convert. If not provided just reads
-from cache |
+| -f, --import | input csv file to convert. If not provided just reads from cache |
 | -o, --output | Output ledger file name |
 | -r, --overwrite | Overwrites the output file. Appends by default |
 | -a, --import-account | The account the import data is from |
