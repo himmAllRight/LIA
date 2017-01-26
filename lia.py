@@ -57,8 +57,34 @@ def secondAccountsPrompt(lineData):
             accountAmount = getUserInput("'" + accountAdd + "'" + " amount: ", defaultValue = "")
             secondAccounts.append((accountAdd, accountAmount))
     return(backend.setSecondAccounts(lineData, secondAccounts))
+
+def cacheProcess(queueData, importAccount, outputFile, cacheFileSRC):
+    """CLI for processing input files or cached items"""
+    for i in range(0,len(queueData)):
+        lineData = modifyLinePrompt(queueData[0])
+        lineData = setAccountsPrompt(lineData, importAccount = importAccount)
+        backend.writeLedgerStatement(lineData, outputFile)
+        queueData.pop(0)
+        ## If loop through all, delete cache file
+    os.remove(cacheFileSRC)
+
+def manualAddProcess(importAccount, outputFile, dateFormat, orderList= ["description", "date", "amount"]):
+    """CLI sequence for manually adding entries"""
+    head, *tail = orderList
+    userInput = getUserInput("Enter in transaction " +  head + ": ")
+    lineData = {}
+    while userInput:
+        lineData["mainAccount"] = importAccount
+        lineData[head] = userInput
+        for inputType in tail:
+            lineData[inputType] = getUserInput("Enter in " + inputType + ": ")
+        lineData = backend.cleanLineData(lineData, dateFormat)
+        lineData = secondAccountsPrompt(lineData)
+        backend.writeLedgerStatement(lineData, outputFile)
+        print("'" + lineData[head] + "'" + " added to ledger journal.\n")
         
-    
+        userInput = getUserInput("Enter in transaction " +  head + ": ")
+        
     
 
 ## Main CLI Loop
@@ -66,6 +92,8 @@ def main():
     """ The Main Class"""
     parser = argparse.ArgumentParser(description="Convert csv files to Ledger")
     parser.add_argument('-f','--input', help="Input csv file name", required=False)
+    parser.add_argument('-m','--manual',action = 'store_true', help="Manually write new Transactions instead of file import.",
+                        required=False)
     parser.add_argument('-o','--output', help="output ledger file name", required=True)
     parser.add_argument('-a','--import-account', help="Default import account", required=True)
     parser.add_argument('-d','--date-format', help="date-format", required=False)
@@ -78,7 +106,8 @@ def main():
         inputFile     = open(args['input'], "r")
     else:
         inputFile = False
-        
+
+    manualInput   = args['manual']
     outputFile    = backend.openOutputFile(args['output'], args['overwrite'])
     cacheFileSRC  = "./cache.csv"
     importAccount = args['import_account']
@@ -87,26 +116,24 @@ def main():
     if args['date_format']:
         dateformat = args['date_format']
 
+    ## Load Cache
     if(inputFile):
         backend.cacheInput(inputFile, cacheFileSRC, dateFormat)
     queueData = backend.loadCache(cacheFileSRC)
 
-    skipProcess = input("skip Process? (For Testing)")
-    
+    ## Escape Case
     import atexit
     atexit.register(backend.writeWorkingCacheToFile, queueData, cacheFileSRC)
-    
-    if(skipProcess == "n"):
-        for i in range(0,len(queueData)):
-            print("queueData: %s"% queueData)
-            lineData = modifyLinePrompt(queueData[0])
-            lineData = setAccountsPrompt(lineData, importAccount = importAccount)
-            backend.writeLedgerStatement(lineData, outputFile)
-            queueData.pop(0)
-            ## If loop through all, delete cache file
-        os.remove(cacheFileSRC)
 
-    inputFile.close()
+    ## Manual or Import process
+    if(manualInput):
+        manualAddProcess(importAccount, outputFile, dateFormat)
+    else:
+        cacheProcess(queueData, importAccount, outputFile, cacheFileSRC)
+        
+    ## Close out and wrapup
+    if(not(manualInput)):
+        inputFile.close()
     outputFile.close()
     print("All done! Have a great day!")
         
