@@ -32,9 +32,9 @@ _To add later_
 
 ### Future TODO Features
 - [X] Output appends, unless --overwrite flag
-- [ ] Option to have statements with reconciled indicator
 - [X] When looping through an input file, it copies the input file to a temp and pops items off as it works through them. This way, if you stop part-way through, you can pick up where it was last left off.
-- [ ] When user edits data, default values are editable in the prompt
+- [ ] Users can simply input new transactions, without improting a csv.
 - [ ] User can setup rules/parsers to default transaction placement. (ex: anything from "cumberland farms" will default to Expenses:Transportation:Gas)
-
+- [ ] When user edits data, default values are editable in the prompt
+- [ ] Option to have statements with reconciled indicator
 
