@@ -1,13 +1,20 @@
 #import sys
 import os
 import argparse
-#import datetime
+import readline
 import liaBackend as backend
 
 ## All the CLI Code
-def getUserInput(promptStr, defaultValue = False):
+def rlinput(prompt, prefill=''):
+   readline.set_startup_hook(lambda: readline.insert_text(prefill))
+   try:
+      return input(prompt)
+   finally:
+      readline.set_startup_hook()
+
+def getUserInput(promptStr, prefill= '', defaultValue = False):
     """Gets the input from use. Returns False if no input"""
-    response = input(promptStr)
+    response = rlinput(promptStr, prefill= prefill)
     if(response == ""):
         return(defaultValue)
     else:
@@ -18,8 +25,8 @@ def modifyLinePrompt(lineData, editList= ["description", "date", "amount"]):
     print("\nAdding new entry: " + backend.entryInfo(lineData))
     
     for dataType in editList:
-        editPrompt = dataType.capitalize() + " [" + lineData[dataType] + "]: "
-        response = getUserInput(editPrompt)
+        editPrompt = dataType.capitalize() + ": "
+        response = getUserInput(editPrompt, prefill= lineData[dataType])
         if(response):
             backend.modifyData(lineData, dataType, response)
     return(lineData)
@@ -37,8 +44,8 @@ def setAccountsPrompt(lineData, importAccount = ""):
 
 def mainAccountPrompt(lineData, importAccount = ""):
     """Prompts the user for information to set the main account"""
-    editPrompt = "Main account [" + importAccount + "]: "
-    editImportAccount = getUserInput(editPrompt, defaultValue = importAccount)
+    editPrompt = "Main account: "
+    editImportAccount = getUserInput(editPrompt, prefill= importAccount, defaultValue = importAccount)
 
     return(backend.setMainAccount(lineData, editImportAccount))
 
