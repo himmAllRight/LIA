@@ -1,1 +1,2 @@
-'description:Dunk -> description:DUNKINDONUTS|amount:15.00'
+description=Dunk -> Expenses:Food:Coffee
+
