@@ -1,5 +1,5 @@
 run:
-	python3 lia.py -f test-files/test-input-small.csv -o test-files/test-output.dat -a "Liabilities:CreditCard:Ryan" -r "test-files/rules-test.txt"
+	python3 lia.py -f test-files/test-input-small.csv -o test-files/test-output.dat -a "Liabilities:CreditCard:Ryan" -r "test-files/rules-test.txt" -c
 run2:
 	python3 lia.py -f test-files/test-numbered-input.csv -o test-files/test-output.dat -a "Liabilities:CreditCard:Ryan" -r "test-files/rules-test.txt"
 manual:
