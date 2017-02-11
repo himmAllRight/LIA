@@ -1,2 +1,2 @@
 description=Dunk -> Expenses:Food:Coffee
-
+description=Stop and Shop -> Expenses:Food:Groceries
