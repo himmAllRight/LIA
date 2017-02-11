@@ -56,12 +56,13 @@ def lineDataToCacheLine(lineData, order=["date", "description", "amount"], delim
 
 def loadCache(cacheFileSRC, order=["date", "description", "amount"], delim=",", dateFormat="%Y/%m/%d"):
     """Loops through a cache file and parses/loads the data to a queue"""
-    cacheFile = open(cacheFileSRC, "r")
     queueData = []
-    for line in cacheFile:
-        lineData = parseLine(line, order, delim)
-        queueData.append(cleanLineData(lineData, dateFormat))
-    cacheFile.close()
+    if(os.path.isfile(cacheFileSRC)):
+        cacheFile = open(cacheFileSRC, "r")
+        for line in cacheFile:
+            lineData = parseLine(line, order, delim)
+            queueData.append(cleanLineData(lineData, dateFormat))
+        cacheFile.close()
     return(queueData)
 
 def writeWorkingCacheToFile(inputData, cacheFileSRC):

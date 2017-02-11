@@ -7,16 +7,33 @@ def parseRuleList(src, splitStr = "->", pairDelim= "="):
     ruleList = []
     ruleFile = open(src, "r")
     for line in ruleFile:
-        ruleList.append(parseRuleLine(line, splitStr = splitStr, pairDelim = pairDelim))
+        parsedLine = parseRuleLine(line, splitStr = splitStr, pairDelim = pairDelim)
+        if(parsedLine):
+            ruleList.append(parsedLine)
     ruleFile.close()
     return(ruleList)
 
 def parseRuleLine(line, splitStr = "->", pairDelim= "="):
     """Parses out data from line of rules file"""
-    splitLine    = str.split(line, splitStr)
-    splitLine[0] = str.split(splitLine[0], pairDelim)
-    return(recursiveTrim(splitLine))
+    if(line.strip() != ''):
+        splitLine    = str.split(line, splitStr)
+        splitLine[0] = str.split(splitLine[0], pairDelim)
+        return(recursiveTrim(splitLine))
+    else:
+        return(False)
 
+def matchRuleData(lineData, ruleList):
+    """Takes lineData dict and ruleList and returns the first match"""
+    head, *tail          = ruleList
+    rulePair, outValue   = head
+    category, searchTerm = rulePair
+    if(stringIn(searchTerm, lineData[category])):
+        return(outValue)
+    else:
+        if(tail == []):
+            return(False)
+        else:
+            return(matchRuleData(lineData, tail))
 
 def recursiveTrim(nestedList):
     """Recursively trims whitespace from strings in a nested list"""
