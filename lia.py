@@ -60,21 +60,25 @@ def mainAccountPrompt(lineData, importAccount = ""):
 def secondAccountsPrompt(lineData, ruleList=False):
    """Prompts the user for the secondary account(s) information"""
    secondAccounts = []
-   accountAdd = True
+
    if(ruleList):
       prefill = rules.matchRuleData(lineData, ruleList)
    else:
       prefill = ""
 
-   while(accountAdd or secondAccounts == []):
-      if(not(accountAdd) and secondAccounts == []):
-         print("At least one secondary account must be specified. Try again.")
-      accountAdd = getUserInput("Secondary account(s): ", prefill = prefill)
-      if(accountAdd):
-         prefill = ""
+   force = True
+   accountAmount = True  ## Ugh this is such a hack...
+   while(accountAmount != ""):
+      accountAmount = ""
+      accountAdd    = getUserInput("Secondary account(s): ", prefill = prefill, defaultValue = "", force= force)
+      if(accountAdd != ""):
          accountAmount = getUserInput("'" + accountAdd + "'" + " amount: ", defaultValue = "")
          secondAccounts.append((accountAdd, accountAmount))
+         force = False
+
    return(backend.setSecondAccounts(lineData, secondAccounts))
+
+
 
 def cacheProcess(queueData,ruleList, importAccount, outputFile, cacheFileSRC):
     """CLI for processing input files or cached items"""
