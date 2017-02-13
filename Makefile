@@ -14,6 +14,8 @@ clean:
 
 test:
 	python3 tests.py
+test2:
+	python tests.py
 
 all:
 	make clean build test run

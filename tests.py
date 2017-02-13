@@ -78,6 +78,11 @@ def test_setSecondAccounts():
                    , 'secondAccounts' : [("acc1",  "20.00"), ("acc2", "")]}
     return(newLineData == expected)
 
+def test_headTail():
+    l = [1,2,3]
+    head, *tail = l
+    return(head == 1 and tail == [2,3])
+
 
 # Just until I write real ones
 def testTrue():
@@ -91,7 +96,8 @@ testList =  [["True", testTrue()]
              ,["entryInfo", test_entryInfo()]
              ,["modifyData", test_modifyData()]
              ,["setMainAccount", test_setMainAccount()]
-             ,["setSecondAccounts", test_setSecondAccounts()]]
+             ,["setSecondAccounts", test_setSecondAccounts()]
+             ,["Head *Tail", test_headTail()]]
 failedTests = []
 
 largestTestName =  functools.reduce(max, map(lambda x: len(x[0]), testList))
