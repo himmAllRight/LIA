@@ -80,7 +80,7 @@ def test_setSecondAccounts():
 
 def test_headTail():
     l = [1,2,3]
-    head, *tail = l
+    head, tail = l[0], l[1:]
     return(head == 1 and tail == [2,3])
 
 

@@ -95,7 +95,7 @@ def cacheProcess(queueData,ruleList, importAccount, outputFile, cacheFileSRC, pr
 
 def manualAddProcess(importAccount, outputFile, dateFormat, ruleList= False, orderList= ["description", "date", "amount"], promptColor= False):
     """CLI sequence for manually adding entries"""
-    head, *tail = orderList
+    head, tail = orderList[0], orderList[1:]
     userInput = getUserInput("Enter in transaction " +  head + ": ", promptColor= promptColor)
     lineData = {}
     while userInput:
