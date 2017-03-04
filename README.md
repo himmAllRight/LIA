@@ -17,15 +17,15 @@ LIA is a simple command-line python application that can help import exported Ce
 
 1. Clone the repository
 
-`git clone https://github.com/himmAllRight/LIA.git`
+   `git clone https://github.com/himmAllRight/LIA.git`
 
 2. Move to the project directory
 
-`cd LIA`
+    `cd LIA`
 
 3. Run the `lia` (with options, see below for more)
 
-`python3 lia -f visa-statement.csv -o output-file.dat -a "Liabilities:VISA`
+    `python3 lia -f visa-statement.csv -o output-file.dat -a "Liabilities:VISA`
 
 ## Run Instructions
 #### Setting up the Input File Header
