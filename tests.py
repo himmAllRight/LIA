@@ -1,7 +1,8 @@
-import os
-import sys
 import functools
-import liaBackend as backend
+import sys
+
+from lia import liaBackend as backend
+
 
 def test_parseHeader():
     testString = ",,,date,,amount,,description,"
