@@ -12,8 +12,20 @@ LIA is a simple command-line python application that can help import exported Ce
 - Automatic placement system. The user can specify a file containing rules to automatically place transactions. (ex: anything with "Dunkin" in the description will default to _Expenses:Food:Coffee_)
 - Colored prompts
 
-## Installation Instructions
-_To add_
+## Execution Instructions
+*will write installer in future*
+
+1. Clone the repository
+
+`git clone https://github.com/himmAllRight/LIA.git`
+
+2. Move to the project directory
+
+`cd LIA`
+
+3. Run the `lia` (with options, see below for more)
+
+`python3 lia -f visa-statement.csv -o output-file.dat -a "Liabilities:VISA`
 
 ## Run Instructions
 #### Setting up the Input File Header
@@ -41,7 +53,7 @@ Note: I can have other values marked in the header for my convenience, but LIA w
 LIA is a python app, so currently the method to run it is by running `lia.py` with python. Python 2 and 3 should both be supported, but 3 is preferred. You will have to provide a few required arguments, and can also specify a few optional ones. All of the command line options are listed in the table below.
 
 example:
-`python3 lia.py -f credit-card.csv -o ledger.dat -a "Liabilities:CreditCard:Discover" -d "%m/%d/%Y" -c`
+`python3 lia -f credit-card.csv -o ledger.dat -a "Liabilities:CreditCard:Discover" -d "%m/%d/%Y" -c`
 
 ### Command Line Options
 This table lists all of the command line options for LIA. The first column states the flag to use when calling the option. The second column provides a small description of the option, while the third column states if it is a required parameter. Lastly, the fourth column defines if you need to provide a value to the argument to the option (_ex: `-f` needs a file path after it, but you just need to write `-w` to use the overwrite option_).
@@ -59,7 +71,7 @@ This table lists all of the command line options for LIA. The first column state
 
 
 ### Example
-`python3 lia.py -f credit-card.csv -o ledger.dat -a "Liabilities:CreditCard:Discover" -d "%m/%d/%Y" -c`
+`python3 lia -f credit-card.csv -o ledger.dat -a "Liabilities:CreditCard:Discover" -d "%m/%d/%Y" -c`
 
 ### Remaining TODO for 1.0 Release
 - [X] Output appends, unless --overwrite flag
@@ -67,9 +79,8 @@ This table lists all of the command line options for LIA. The first column state
 - [X] Users can simply input new transactions, without improting a csv.
 - [X] User can setup rules/parsers to default transaction placement. (ex: anything from "cumberland farms" will default to Expenses:Transportation:Gas)
 - [X] When user edits data, default values are editable in the prompt
-- [ ] Option to have statements with reconciled indicator (?)
 - [ ] Build simple install system
 - [ ] Update README file
-  - [ ] Update Current Readme content
-  - [ ] Write Install Instructions
+  - [X] Update Current Readme content
+  - [X] Write Install Instructions
   - [ ] Write Use Instructions
