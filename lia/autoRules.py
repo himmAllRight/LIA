@@ -1,5 +1,3 @@
-import liaBackend as backend
-
 ## Example rules line
 ## description=Dunk -> Expenses:Food:Coffee
 
