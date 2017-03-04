@@ -22,7 +22,7 @@ def parseRuleLine(line, splitStr = "->", pairDelim= "="):
 
 def matchRuleData(lineData, ruleList):
     """Takes lineData dict and ruleList and returns the first match"""
-    head, *tail          = ruleList
+    head, tail = ruleList[0], ruleList[1:]
     rulePair, outValue   = head
     category, searchTerm = rulePair
     if(stringIn(searchTerm, lineData[category])):
