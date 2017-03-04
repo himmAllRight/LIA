@@ -1,2 +1,7 @@
 description=Dunk -> Expenses:Food:Coffee
-
+description=NETFLIX -> Expenses:Entertainment:Subscriptions
+description=YMCA -> Expenses:Health:Gym
+description=Stop & Shop -> Expenses:Food:Groceries
+description=Stop and Shop -> Expenses:Food:Groceries
+description=Comcast -> Expenses:Utilities:Internet
+description=Panera -> Expenses:Food:Cafe
