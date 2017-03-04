@@ -1,4 +1,4 @@
-LIA="lia/lia.py"
+LIA="lia"
 INPUT1="test-files/test-input-small.csv"
 INPUT2="test-files/test-numbered-input.csv"
 OUTPUT="test-files/test-output.dat"
