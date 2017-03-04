@@ -49,7 +49,7 @@ def main():
 
     manualInput = args['manual']
     outputFile = backend.openOutputFile(args['output'], args['overwrite'])
-    cacheFileSRC = "./cache.csv"
+    cacheFileSRC = "../cache.csv"
     importAccount = args['import_account']
     dateFormat = "%m/%d/%Y"
 
