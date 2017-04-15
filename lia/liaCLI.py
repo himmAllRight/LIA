@@ -36,7 +36,7 @@ def getUserInput(promptStr, prefill= '', defaultValue = False, force= False, pro
 def modifyLinePrompt(lineData, editList= ["description", "date", "amount"], promptColor=False):
     """Loops through and prompts user of any data modifications to line"""
     print("\nAdding new entry: " + backend.entryInfo(lineData))
-    
+
     for dataType in editList:
         editPrompt = dataType.capitalize() + ": "
         response = getUserInput(editPrompt, prefill= lineData[dataType], promptColor= promptColor)
@@ -49,7 +49,7 @@ def setAccountsPrompt(lineData, ruleList= False, importAccount = "", promptColor
 
     ## In the future, here is where the rules will be checked/called to see if
     ## there is anything to pass as a secondary account's default name.
-    
+
     ## For now, just enjoy the nested return call :P
     lineData = mainAccountPrompt(lineData, importAccount = importAccount, promptColor= promptColor)
     lineData = secondAccountsPrompt(lineData, ruleList = ruleList, promptColor= promptColor)
@@ -62,7 +62,7 @@ def mainAccountPrompt(lineData, importAccount = "", promptColor=False):
 
     return(backend.setMainAccount(lineData, editImportAccount))
 
-    
+
 def secondAccountsPrompt(lineData, ruleList=False, promptColor=False):
    """Prompts the user for the secondary account(s) information"""
    secondAccounts = []
@@ -93,7 +93,8 @@ def cacheProcess(queueData,ruleList, importAccount, outputFile, cacheFileSRC, pr
         backend.writeLedgerStatement(lineData, outputFile)
         queueData.pop(0)
         ## If loop through all, delete cache file
-    os.remove(cacheFileSRC)
+    if(os.path.exists(cacheFileSRC)):
+       os.remove(cacheFileSRC)
 
 def manualAddProcess(importAccount, outputFile, dateFormat, ruleList= False, orderList= ["description", "date", "amount"], promptColor= False):
     """CLI sequence for manually adding entries"""
@@ -109,7 +110,7 @@ def manualAddProcess(importAccount, outputFile, dateFormat, ruleList= False, ord
         lineData = secondAccountsPrompt(lineData, ruleList = ruleList)
         backend.writeLedgerStatement(lineData, outputFile)
         print("'" + lineData[head] + "'" + " added to ledger journal.\n")
-        
+
         userInput = getUserInput("Enter in transaction " +  head + ": ", promptColor= promptColor)
 
 

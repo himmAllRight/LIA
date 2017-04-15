@@ -6,7 +6,7 @@ import argparse
 import os
 import readline
 
-import lia.liaCLI as ui
+from lia import liaCLI as ui
 import lia.liaBackend as backend
 import lia.autoRules as rules
 
@@ -50,7 +50,7 @@ def main():
 
     manualInput = args['manual']
     outputFile = backend.openOutputFile(args['output'], args['overwrite'])
-    cacheFileSRC = "~/.lia-cache.csv"
+    cacheFileSRC = os.path.expanduser('~') + os.sep + ".cache.csv"
     importAccount = args['import_account']
     dateFormat = "%m/%d/%Y"
 
@@ -73,7 +73,8 @@ def main():
         ui.cacheProcess(queueData, ruleList, importAccount, outputFile, cacheFileSRC, promptColor=promptColor)
 
     ## Close out and wrapup
-    if (not (manualInput)):
+    if (not (manualInput) and inputFile):
+        print("inputFile: %s" % inputFile)
         inputFile.close()
     outputFile.close()
     print("All done! Have a great day!")

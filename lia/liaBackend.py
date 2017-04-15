@@ -14,6 +14,10 @@ def openOutputFile(src, overwrite = False):
     else:
         return(open(src, "a"))
 
+def ensureFileOpen(src, openMethod= "r"):
+    """Checks if file exists, if not creates it before opening"""
+
+
 ## Cache Queue Functions
 def cacheInput(inputFile, cacheFileSRC, dateFormat, prepend = False, openMethod= "a"):
     """Goes through input file and caches it to be processed"""
@@ -29,7 +33,7 @@ def parseInput(inputFile, dateFormat):
     """Reads an input file and converts it to the cache format"""
     header   = False
     inputData = []
-    
+
     for line in inputFile:
         if (header == False):
             header = parseHeader(line)
@@ -69,7 +73,7 @@ def writeWorkingCacheToFile(inputData, cacheFileSRC):
     cacheFile = open(cacheFileSRC, "w")
     appendToCache(inputData, cacheFile)
     cacheFile.close()
-    
+
 
 ## Parser Code
 def parseHeader(lineStr, delim = ","):
