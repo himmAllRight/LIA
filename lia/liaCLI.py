@@ -4,8 +4,8 @@ import os
 import readline
 
 
-import liaBackend as backend
-import autoRules as rules
+import lia.liaBackend as backend
+import lia.autoRules as rules
 
 ## All the CLI Code
 def rlinput(prompt, prefill='', promptColor = False):
