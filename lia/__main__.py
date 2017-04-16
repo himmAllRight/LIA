@@ -2,7 +2,7 @@ import argparse
 import os
 import readline
 
-import lia as ui
+import liaCLI as ui
 import liaBackend as backend
 import autoRules as rules
 
@@ -49,7 +49,7 @@ def main():
 
     manualInput = args['manual']
     outputFile = backend.openOutputFile(args['output'], args['overwrite'])
-    cacheFileSRC = "./cache.csv"
+    cacheFileSRC = "../cache.csv"
     importAccount = args['import_account']
     dateFormat = "%m/%d/%Y"
 
