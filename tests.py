@@ -1,7 +1,7 @@
 import functools
 import sys
 
-from lia import liaBackend as backend
+from lialib import liaBackend as backend
 
 
 def test_parseHeader():
