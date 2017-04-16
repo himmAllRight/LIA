@@ -74,7 +74,6 @@ def main():
 
     ## Close out and wrapup
     if (not (manualInput) and inputFile):
-        print("inputFile: %s" % inputFile)
         inputFile.close()
     outputFile.close()
     print("All done! Have a great day!")
