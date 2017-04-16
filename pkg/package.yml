@@ -1,0 +1,17 @@
+name       : lia
+version    : 1.0
+release    : 1
+source     :
+    - https://github.com/himmAllRight/LIA/archive/1.0-beta.tar.gz : 943b743602b63603451c1420787b525e5a25558ae96737e1d6810a2e949a7674
+license    : GPL-3.0 # CHECK ME
+component  : office
+summary    : A command line tool to easily import/convert bank and credit card statments to a ledger file.
+description: |
+  LIA is a simple command-line python application that can help import exported Cedit Card and Bank statement csv files into a ledger journal file
+builddeps  :
+    - pkgconfig(python-3.5)
+    - python-setuptools
+rundeps    :
+    - ledger
+install    : |
+    %python3_install
