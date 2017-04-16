@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="LIA",
-    version="0.91",
+    version="1.00",
     author="Ryan Himmelwright",
     author_email="ryan.himmelwright@gmail.com",
     url='http://github.com/himmAllRight/LIA',
