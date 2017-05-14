@@ -131,12 +131,12 @@ def setSecondAccounts(lineData, secondaryAccounts):
     """Sets the secondary accounts data in lineData"""
     lineData["secondAccounts"] = secondaryAccounts
 
-## Use this if more complicated method needed    
+## Use this if more complicated method needed
 ##    for (accountName, accountAmount) in secondaryAccounts:
 ##        lineData["secondAccounts"].append((accountName, accountAmount))
-        
+
     return(lineData)
-        
+
 
 ## Output Functions
 def writeLedgerStatement(lineData, outFile):
@@ -148,5 +148,5 @@ def writeLedgerStatement(lineData, outFile):
         lastLines = lastLines + "\t" + line[0] + "\t" + line[1] + "\n"
 
     outFile.write(nameLine + mainAccountLine + lastLines + "\n")
-    
+
 
