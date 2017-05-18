@@ -2,7 +2,7 @@ name       : lia
 version    : 1.0
 release    : 2
 source     :
-    - https://github.com/himmAllRight/LIA/archive/1.1-beta.tar.gz : 943b743602b63603451c1420787b525e5a25558ae96737e1d6810a2e949a7674
+    - https://github.com/himmAllRight/LIA/archive/1.1-beta.tar.gz : a0b3fa6798affd5eea1d6e5e4126f9a3fcdf6e136b4708f284ab78ac0d715021
 license    : GPL-3.0 # CHECK ME
 component  : office
 summary    : A command line tool to easily import/convert bank and credit card statments to a ledger file.
