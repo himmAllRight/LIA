@@ -17,6 +17,7 @@ def argSet(key, args, fn, failReturn= False):
 ## Main CLI Loop
 def main():
     """ The Main Class"""
+    print("Lialib Main")
     parser = argparse.ArgumentParser(description="Convert csv files to Ledger")
     parser.add_argument('-f', '--input', help="Input csv file name", required=False)
     parser.add_argument('-r', '--rules', help="Automatic rules file", required=False)
@@ -25,6 +26,7 @@ def main():
                         required=False)
     parser.add_argument('-o', '--output', help="output ledger file name", required=True)
     parser.add_argument('-c', '--color', action="store_true", help="Turns on the colored output", required=False)
+    parser.add_argument('-s', '--cache', help="Defines the cache file location. Defaults to ~/.lia-cache.csv", required=False)
     parser.add_argument('-a', '--import-account', help="Default import account", required=True)
     parser.add_argument('-d', '--date-format', help="date-format", required=False)
     parser.add_argument('-w', '--overwrite', help="Overwrite output file. Defaults to append", required=False)

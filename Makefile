@@ -1,4 +1,4 @@
-LIA="lia"
+LIA=lia
 INPUT1="test-files/test-input-small.csv"
 INPUT2="test-files/test-numbered-input.csv"
 OUTPUT="test-files/test-output.dat"
@@ -8,13 +8,13 @@ ACCOUNT="Liabilities:CreditCard:Ryan"
 
 
 run:
-	python3 $(LIA) -f $(INPUT1) -o $(OUTPUT) -a $(ACCOUNT) -r $(RULES) -c
+	python3 $(LIA) -f $(INPUT1) -o $(OUTPUT) -a $(ACCOUNT) -r $(RULES) -C 
 run2:
-	python3 $(LIA) -f $(INPUT2) -o $(OUTPUT) -a $(ACCOUNT) -r $(RULES) -c
+	python3 $(LIA) -f $(INPUT2) -o $(OUTPUT) -a $(ACCOUNT) -r $(RULES) -C
 manual:
-	python3 $(LIA) -m -o $(OUTPUT) -a $(ACCOUNT) -r $(RULES) -c
+	python3 $(LIA) -m -o $(OUTPUT) -a $(ACCOUNT) -r $(RULES) -C
 cacheRun:
-	python3 $(LIA) -o $(OUTPUT) -a $(ACCOUNT) -r $(RULES) -c
+	python3 $(LIA) -o $(OUTPUT) -a $(ACCOUNT) -r $(RULES) -C
 build:
 	nuitka --recurse-all $(LIA)
 
